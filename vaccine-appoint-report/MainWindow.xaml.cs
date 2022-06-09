@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VaccineReportDataLib.ViewModels;
 
 namespace vaccine_appoint_report
 {
@@ -20,8 +21,10 @@ namespace vaccine_appoint_report
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainViewModel viewModel = new VaccineReportDataLib.ViewModels.MainViewModel();
         public MainWindow()
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

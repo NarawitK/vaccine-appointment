@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace VaccineReportDataLib.DataModels.UI
 {
-    public interface IFormModel
+    public interface IFormModel : INotifyPropertyChanged
     {
         public int VaccineCode { get; set; }
         public DateTime StartDate { get; set; }
