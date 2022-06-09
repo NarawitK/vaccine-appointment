@@ -1,0 +1,66 @@
+﻿<Window x:Class="vaccine_appoint_report.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:vaccine_appoint_report"
+        mc:Ignorable="d"
+        
+        Title="MainWindow" Height="400" Width="400">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Background="LightGray">
+            <TextBlock Text="555" />
+        </StackPanel>
+        <Label Content="This is an app." Padding="8" />
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Vaccine" Grid.Row="0" Grid.Column="0" />
+            <Label Content="Appointment Dose" Grid.Row="0" Grid.Column="1" />
+            <ComboBox IsEditable="True" Name="VaccineComboBox" Grid.Row="1" Grid.Column="0" />
+            <TextBox Text="1" Grid.Row="1" Grid.Column="1" />
+            <Label Content="StartDate" Grid.Row="2" Grid.Column="0" />
+            <Label Content="Appointment Date" Grid.Row="2" Grid.Column="1" />
+            <DatePicker Name="StartDatePicker" Grid.Row="3" Grid.Column="0" />
+            <DatePicker Name="AppointDatePicker" Grid.Row="3" Grid.Column="1" />
+            <Label Content="Sub Vaccine Appointment Plan" Grid.Row="4" Grid.Column="0" />
+            <ComboBox Name="SubPlanComboBox" Grid.Row="4" Grid.Column="1" />
+            <Label Content="Specify Doctor Code" Grid.Row="5" Grid.Column="0" />
+            <ComboBox Name="DoctorComboBox" Grid.Row="5" Grid.Column="1" />
+        </Grid>
+        
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="Execute" Padding="8" Grid.Row="0" Grid.Column="0" />
+            <Button Content="Export as Excel 2010+" Padding="8" Grid.Row="0" Grid.Column="1" />
+            <Label Content="DataGrid" Grid.Row="1" Grid.Column="0" Visibility="Collapsed"/>
+            <DataGrid 
+                Margin="0,8" 
+                Grid.Row="2" 
+                Grid.Column="0" 
+                Grid.ColumnSpan="2"
+                Visibility="Collapsed">
+            </DataGrid>
+        </Grid>
+
+    </StackPanel>
+</Window>
