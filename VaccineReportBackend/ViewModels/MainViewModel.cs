@@ -34,7 +34,7 @@ namespace VaccineReportBackend.ViewModels
 
 
         #region CommandDeclaration
-        private async void GetSomethingCommand()
+        private void GetSomethingCommand()
         {
             // TO-DO::
         }
