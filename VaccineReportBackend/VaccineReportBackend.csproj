@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>vaccine_appoint_report</RootNamespace>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VaccineReportBackend\VaccineReportBackend.csproj" />
+    <ProjectReference Include="..\VaccineReportDataLib\VaccineReportDataLib.csproj" />
   </ItemGroup>
 
 </Project>

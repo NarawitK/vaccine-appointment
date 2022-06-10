@@ -16,8 +16,8 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
             _dbTransaction = null;
             /*
              * Uncomment here for TX Usage
-			 _dbConnection = dbConnection.Open();
-            _dbTransaction = _dbConnection.BeginTransaction();
+			 * _dbConnection = dbConnection.Open();
+             * _dbTransaction = _dbConnection.BeginTransaction();
             */
         }
 

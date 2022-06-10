@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:vaccine_appoint_report"
+        xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
         mc:Ignorable="d"
         
         Title="MainWindow" Height="400" Width="400">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
     <StackPanel>
         <StackPanel Orientation="Horizontal"
                     Background="LightGray">
