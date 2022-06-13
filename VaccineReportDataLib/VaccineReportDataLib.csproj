@@ -6,11 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySqlConnector" Version="2.1.10" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="DatabaseCore">
-      <HintPath>..\..\..\DatabaseCore\DatabaseCore\bin\Release\net5.0\DatabaseCore.dll</HintPath>
+      <HintPath>DatabaseCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

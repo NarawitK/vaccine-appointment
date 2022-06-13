@@ -3,7 +3,7 @@
     public class SubPlanComboBoxModel
     {
         public int SubPlanKey { get; set; }
-        public int PlanKey { get; set; }
+        public int VaccinePlanKey { get; set; }
         public string SubPlanName { get; set; }
     }
 }

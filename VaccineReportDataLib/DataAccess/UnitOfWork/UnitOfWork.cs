@@ -3,7 +3,7 @@ using System.Data;
 
 namespace VaccineReportDataLib.DataAccess.UnitOfWork
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private IDbTransaction _dbTransaction;
         private IDbConnection _dbConnection;

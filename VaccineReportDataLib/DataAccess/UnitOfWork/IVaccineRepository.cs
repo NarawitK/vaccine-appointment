@@ -8,6 +8,7 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
     public interface IVaccineRepository
     {
         Task<IEnumerable<VaccineComboBoxModel>> GetAllVaccineAsync();
+        Task<IEnumerable<SubPlanComboBoxModel>> GetAllSubPlanAsync();
         Task<IEnumerable<SubPlanComboBoxModel>> GetSubPlanByVaccineIdAsync(int vaccineId);
         Task<IEnumerable<IAppointmentResult>> GetAppointResultAsync(IFormModel formModel);
     }

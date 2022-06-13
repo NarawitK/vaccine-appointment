@@ -8,7 +8,7 @@ namespace VaccineReportDataLib.DataModels.UI
 {
     public class VaccineComboBoxModel
     {
-        public int VaccineCode { get; set; }
+        public int? VaccineCode { get; set; }
         public string Name { get; set; }
     }
 }

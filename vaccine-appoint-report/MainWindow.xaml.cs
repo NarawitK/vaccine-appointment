@@ -21,7 +21,7 @@ namespace vaccine_appoint_report
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MainViewModel viewModel = new VaccineReportBackend.ViewModels.MainViewModel();
+        private MainViewModel viewModel = new VaccineReportBackend.ViewModels.MainViewModel();
         public MainWindow()
         {
             DataContext = viewModel;

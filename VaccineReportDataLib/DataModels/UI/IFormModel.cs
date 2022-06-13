@@ -6,6 +6,7 @@ namespace VaccineReportDataLib.DataModels.UI
     public interface IFormModel : INotifyPropertyChanged
     {
         public int VaccineCode { get; set; }
+        public int Dose { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int? SubVaccinePlanCode { get; set; }

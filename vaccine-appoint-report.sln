@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vaccine-appoint-report", "v
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaccineReportDataLib", "VaccineReportDataLib\VaccineReportDataLib.csproj", "{12301327-B9E5-431E-B9B4-8BB509603513}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccineReportBackend", "VaccineReportBackend\VaccineReportBackend.csproj", "{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaccineReportBackend", "VaccineReportBackend\VaccineReportBackend.csproj", "{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

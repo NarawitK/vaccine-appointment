@@ -11,6 +11,7 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
     {
         private readonly IDbConnection _dbConnection;
         private readonly IDbTransaction _dbTransaction;
+        private readonly string tableName = "doctor";
 
         public DoctorCodeRepository(IDbConnection dbConnection, IDbTransaction dbTransaction)
         {
@@ -20,15 +21,13 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
 
         public async Task<IEnumerable<DoctorCodeModel>> GetAllDoctorsAsync()
         {
-            string tableName = "person_vaccine";
-            string statement = $"SELECT person_vaccine_id AS VaccineCode, vaccine_name AS Name from {tableName} WHERE update_moph_registry = 'Y'";
+            string statement = $"SELECT code AS DoctorCode, pname AS Initials, fname AS Firstname, lname AS Surname FROM {tableName}";
             return await _dbConnection.QueryAsync<DoctorCodeModel>(statement, null, _dbTransaction, 10, CommandType.Text);
         }
 
         public async Task<IEnumerable<DoctorCodeModel>> GetDoctorsByIdAsync(IEnumerable<string> doctorCode)
         {
-            string tableName = "person_vaccine";
-            string statement = $"SELECT person_vaccine_id AS VaccineCode, vaccine_name AS Name from {tableName} WHERE update_moph_registry = 'Y'";
+            string statement = $"SELECT code AS DoctorCode, pname AS Initials, fname AS Firstname, lname AS Surname FROM {tableName} WHERE code = '{doctorCode}'";
             return await _dbConnection.QueryAsync<DoctorCodeModel>(statement, null, _dbTransaction, 10, CommandType.Text);
         }
     }

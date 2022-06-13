@@ -6,7 +6,7 @@ namespace VaccineReportBackend.Commands
     public class RelayCommand : ICommand
     {
         readonly Action _DoWork;
-        Func<bool> _canExecuteEvaluator;
+        readonly Func<bool> _canExecuteEvaluator;
 
         public RelayCommand(Action work)
         : this(work, null) { }

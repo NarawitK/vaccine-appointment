@@ -5,6 +5,7 @@ namespace VaccineReportDataLib.DataModels.UI
     public class FormModel : ViewModelBase, IFormModel
     {
         private int _vaccineCode;
+        private int _dose;
         private DateTime _startDate;
         private DateTime _endDate;
         private int? _subVaccinePlanCode;
@@ -17,6 +18,16 @@ namespace VaccineReportDataLib.DataModels.UI
                 OnPropertyChanged();
             }
         }
+        public int Dose
+        {
+            get => _dose;
+            set
+            {
+                _dose = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DateTime StartDate {
             get => _startDate;
             set
