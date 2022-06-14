@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace VaccineReportDataLib.DataModels.UI
 {
@@ -9,8 +10,8 @@ namespace VaccineReportDataLib.DataModels.UI
         private DateTime _startDate;
         private DateTime _endDate;
         private int? _subVaccinePlanCode;
-        private int? _doctorCode;
-        public int VaccineCode {
+        private string _doctorCode;
+        public virtual int VaccineCode {
             get => _vaccineCode;
             set
             {
@@ -28,7 +29,7 @@ namespace VaccineReportDataLib.DataModels.UI
             }
         }
 
-        public DateTime StartDate {
+        public virtual DateTime StartDate {
             get => _startDate;
             set
             {
@@ -52,7 +53,7 @@ namespace VaccineReportDataLib.DataModels.UI
                 OnPropertyChanged();
             }
         }
-        public int? DoctorCode {
+        public string DoctorCode {
             get => _doctorCode;
             set
             {
@@ -61,5 +62,7 @@ namespace VaccineReportDataLib.DataModels.UI
             }
         }
 
+        public string GetStartDate => _startDate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+        public string GetEndDate => _endDate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
     }
 }

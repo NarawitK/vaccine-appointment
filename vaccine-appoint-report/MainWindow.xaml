@@ -3,11 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:vaccine_appoint_report"
         xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
-        mc:Ignorable="d"
-        
+        mc:Ignorable="d"     
         Title="MainWindow" Height="400" Width="400">
     <Window.DataContext>
         <vm:MainViewModel />
@@ -41,19 +39,12 @@
                 IsEditable="True" 
                 Name="VaccineComboBox"
                 ItemsSource="{Binding Vaccines, Mode=TwoWay}"
-                SelectedItem="{Binding VaccineCode, Mode=OneWayToSource}"
+                SelectedValue="{Binding VaccineCode, Mode=OneWayToSource}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="VaccineCode"
-                Grid.Row="1" Grid.Column="0">
-              <!--  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding RegionChangedCmd}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-              -->
-            </ComboBox>
+                Grid.Row="1" Grid.Column="0" />
             <TextBox 
-                Text="{Binding Dose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Text="{Binding Dose, Mode=TwoWay}" 
                 Grid.Row="1" Grid.Column="1" />
             <Label 
                 Content="StartDate" 
@@ -62,11 +53,14 @@
                 Content="Appointment Date" 
                 Grid.Row="2" Grid.Column="1" />
             <DatePicker 
-                Name="StartDatePicker" 
+                Name="StartDatePicker"
+                SelectedDateFormat="Short"
                 SelectedDate="{Binding StartDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="0" />
             <DatePicker 
-                Name="AppointDatePicker" 
+                Name="AppointDatePicker"
+                DisplayDateStart="{Binding StartDate}"
+                SelectedDateFormat="Short"
                 SelectedDate="{Binding EndDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="1" />
             <Label 
@@ -75,6 +69,9 @@
             <ComboBox 
                 Name="SubPlanComboBox"
                 ItemsSource="{Binding SubPlans, Mode=OneWay}"
+                DisplayMemberPath="SubPlanName"
+                SelectedValuePath="SubPlanKey"
+                SelectedValue="{Binding SubVaccinePlanCode, Mode=OneWayToSource}"
                 Grid.Row="4" Grid.Column="1" />
             <Label 
                 Content="Specify Doctor Code" 
@@ -87,9 +84,10 @@
                 SelectedValuePath="DoctorCode"
                 Grid.Row="5" Grid.Column="1" />
         </Grid>
-        
+
         <Grid Margin="8">
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -98,17 +96,70 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Content="Execute" Padding="8" Grid.Row="0" Grid.Column="0" />
-            <Button Content="Export as Excel 2010+" Padding="8" Grid.Row="0" Grid.Column="1" />
-            <Label Content="DataGrid" Grid.Row="1" Grid.Column="0" Visibility="Collapsed"/>
-            <DataGrid 
+            <Button Content="Execute" Command="{Binding SendCommand}" Padding="8" Grid.Row="0" Grid.Column="0" />
+            <Button Content="Export as Excel 2010+" Command="{Binding ToExcelCommand}" Padding="8" Grid.Row="0" Grid.Column="1" />
+            <Label Content="DataGrid" Grid.Row="1" Grid.Column="0" Visibility="{Binding IsDataGridVisible, Mode=OneWay}"/>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding IsDataGridVisible, Mode=OneWay}">
+                <TextBlock Text="จำนวนนัด: " />
+                <TextBlock Text="Binding Jaaa" />
+                <TextBlock Text="ราย" />
+            </StackPanel>
+            <DataGrid
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding AppointmentResults}"
+                CanUserAddRows="False"
+                CanUserReorderColumns="True"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 Margin="0,8" 
-                Grid.Row="2" 
+                Grid.Row="3" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="2"
-                Visibility="Collapsed">
+                Visibility="{Binding IsDataGridVisible, Mode=OneWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="วันนัดถัดไป"
+                        Binding="{Binding NextScheduleDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}"/>
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="วันที่รับบริการ"
+                        Binding="{Binding InjectionDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="วัคซีนที่ได้รับครั้งก่อน"
+                        Binding="{Binding VaccineName, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="HN"
+                        Binding="{Binding HN, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto" 
+                        Header="เลขประจำตัวประชาชน"
+                        Binding="{Binding CID, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="ชื่อ-สกุล"
+                        Binding="{Binding Fullname, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="วันเกิด"
+                        Binding="{Binding Birthdate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="อายุ"
+                        Binding="{Binding Age, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto" 
+                        Header="ที่อยู่"
+                        Binding="{Binding Address, Mode=OneWay}" />
+                    <DataGridTextColumn 
+                        Width="auto"
+                        Header="เบอร์โทรติดต่อ"
+                        Binding="{Binding Telephone, Mode=OneWay}" />
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
     </StackPanel>
 </Window>

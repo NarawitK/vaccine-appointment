@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using VaccineReportDataLib.DataModels.Query;
 using VaccineReportDataLib.DataModels.UI;
+using VaccineReportDataLib.Helpers;
 
 namespace VaccineReportDataLib.DataAccess.UnitOfWork
 {
@@ -20,9 +21,15 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
 
         public async Task<IEnumerable<IAppointmentResult>> GetAppointResultAsync(IFormModel formModel)
         {
-            string tableName = "person_vaccine";
-            string statement = $"SELECT otp.plan_end_date 'next_sched_date', DATE(ov.immunization_datetime) 'injection_date',pv.vaccine_name 'vaccine_name', MAX(ov.vaccine_plan_no) 'inject_no', o.hn, pt.cid,pt.pname, pt.fname, pt.lname, pt.birthday, YEAR(CURDATE())-YEAR(pt.birthday) 'age',CONCAT(IF(pt.addrpart = '-', '-', pt.addrpart), ' หมู่ ', IF(pt.moopart <>'', pt.moopart, '-'), ' ', t.full_name) 'address',IF(pt.hometel IS NOT NULL OR pt.hometel <> '', pt.hometel, pt.informtel) 'tel'FROM {tableName} ov LEFT JOIN person_vaccine pv USING(person_vaccine_id) INNER JOIN ovst o USING(vn) LEFT JOIN patient pt USING(hn) LEFT JOIN thaiaddress t ON pt.amppart = t.amppart && pt.tmbpart = t.tmbpart && pt.chwpart = t.chwpart LEFT JOIN ovst_treatment_plan otp USING(ovst_treatment_plan_id) WHERE ov.person_vaccine_id = {formModel.VaccineCode} && ov.vaccine_plan_no = {formModel.Dose} && otp.plan_end_date = '{formModel.EndDate}' && o.vstdate = '{formModel.StartDate}' #&& otp.treatment_plan_type_id = {formModel.SubVaccinePlanCode} #&& ov.doctor_code = '{formModel.DoctorCode}' GROUP BY o.hn";
-            return await _dbConnection.QueryAsync<AppointResult>(statement, null, _dbTransaction, 10, CommandType.Text);
+            string tableName = "ovst_vaccine";
+            string basedStatement = $"SELECT otp.plan_end_date 'NextScheduleDate', DATE(ov.immunization_datetime) 'InjectionDate', pv.vaccine_name 'VaccineName', MAX(ov.vaccine_plan_no) 'InjectionNumber', o.hn 'HN', pt.cid 'CID', pt.pname 'Initials', pt.fname 'Firstname', pt.lname 'Surname', pt.birthday 'Birthdate', YEAR(CURDATE())-YEAR(pt.birthday) 'Age', CONCAT(IF(pt.addrpart = '-', '-', pt.addrpart), ' หมู่ ', IF(pt.moopart <>'', pt.moopart, '-'), ' ', t.full_name) 'Address',IF(pt.hometel IS NOT NULL OR pt.hometel <> '', pt.hometel, pt.informtel) 'Telephone' " +
+                $"FROM {tableName} ov " +
+                $"LEFT JOIN person_vaccine pv USING(person_vaccine_id) " +
+                $"INNER JOIN ovst o USING(vn) LEFT JOIN patient pt USING(hn) " +
+                $"LEFT JOIN thaiaddress t ON pt.amppart = t.amppart && pt.tmbpart = t.tmbpart && pt.chwpart = t.chwpart " +
+                $"LEFT JOIN ovst_treatment_plan otp USING(ovst_treatment_plan_id)";
+            basedStatement = ParameterSerializer.AppointParameterSerialize(basedStatement, formModel);
+            return await _dbConnection.QueryAsync<AppointResult>(basedStatement, null, _dbTransaction, 10, CommandType.Text);
         }
 
         public async Task<IEnumerable<VaccineComboBoxModel>> GetAllVaccineAsync()
@@ -35,16 +42,17 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
         public async Task<IEnumerable<SubPlanComboBoxModel>> GetAllSubPlanAsync()
         {
             string tableName = "treatment_plan_type_schedule";
-            string statement = $"SELECT tpts.treatment_plan_type_schedule_id AS SubPlanKey, tpt.treatment_plan_ref_id AS PlanKey, tpts.treatment_description AS SubPlanName FROM {tableName} tpts" +
-                $" LEFT JOIN treatment_plan_type tpt USING(treatment_plan_type_id)";
+            string statement = $"SELECT tpts.treatment_plan_type_id AS SubPlanKey,  tpt.treatment_plan_ref_id AS VaccinePlanKey, tpts.treatment_description AS SubPlanName FROM {tableName} tpts" +
+                $" LEFT JOIN treatment_plan_type tpt USING(treatment_plan_type_id)" +
+                $" WHERE tpts.treatment_number > 1";
             return await _dbConnection.QueryAsync<SubPlanComboBoxModel>(statement, null, _dbTransaction, 10, CommandType.Text);
         }
 
         public async Task<IEnumerable<SubPlanComboBoxModel>> GetSubPlanByVaccineIdAsync(int vaccineId)
         {
             string tableName = "treatment_plan_type_schedule";
-            string statement = $"SELECT tpts.treatment_plan_type_schedule_id AS SubPlanKey, tpt.treatment_plan_ref_id AS VaccinePlanKey, tpts.treatment_description AS SubPlanName FROM {tableName} tpts " +
-                $"LEFT JOIN treatment_plan_type tpt USING(treatment_plan_type_id) WHERE tpt.treatment_plan_ref_id = {vaccineId}";
+            string statement = $"SELECT tpts.treatment_plan_type_id AS SubPlanKey, tpt.treatment_plan_ref_id AS VaccinePlanKey, tpts.treatment_description AS SubPlanName FROM {tableName} tpts " +
+                $"LEFT JOIN treatment_plan_type tpt USING(treatment_plan_type_id) WHERE tpt.treatment_plan_ref_id = {vaccineId} && tpts.treatment_number > 1";
             return await _dbConnection.QueryAsync<SubPlanComboBoxModel>(statement, null, _dbTransaction, 10, CommandType.Text);
         }
     }

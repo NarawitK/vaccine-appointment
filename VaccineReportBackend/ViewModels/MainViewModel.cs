@@ -6,13 +6,32 @@ using VaccineReportDataLib.DataModels.UI;
 using VaccineReportBackend.Commands;
 using VaccineReportDataLib.DataAccess.UnitOfWork;
 using System.Collections.ObjectModel;
+using VaccineReportDataLib.DataModels.Query;
+using VaccineReportBackend.Exporter;
 
 namespace VaccineReportBackend.ViewModels
 {
     public class MainViewModel : FormModel
     {
+        public override int VaccineCode { 
+            get => base.VaccineCode;
+            set {
+                base.VaccineCode = value;
+                PopulateSubPlanList(value);
+                OnPropertyChanged();
+            }  
+        }
+        public override DateTime StartDate { 
+            get => base.StartDate; 
+            set 
+            { 
+                base.StartDate = value;
+                EndDate = ChangeEndDateOnStartDateChanged(StartDate, EndDate, 21);
+                OnPropertyChanged();
+            }
+        }
         #region ComboBoxList
-        private ObservableCollection<SubPlanComboBoxModel> _defaultSubPlans;
+        private IEnumerable<SubPlanComboBoxModel> _defaultSubPlans;
         private ObservableCollection<VaccineComboBoxModel> _vaccines;
         public ObservableCollection<VaccineComboBoxModel> Vaccines
         {
@@ -44,11 +63,21 @@ namespace VaccineReportBackend.ViewModels
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<IAppointmentResult> _appointmentResults;
+        public ObservableCollection<IAppointmentResult> AppointmentResults
+        {
+            get => _appointmentResults;
+            set
+            {
+                _appointmentResults = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Visibility
-        private bool _isDataGridVisible;
-        public bool IsDataGridVisible
+        private string _isDataGridVisible;
+        public string IsDataGridVisible
         {
             get => _isDataGridVisible;
             set
@@ -66,9 +95,7 @@ namespace VaccineReportBackend.ViewModels
 
         public MainViewModel()
         {
-            Dose = 1;
-            StartDate = DateTime.Today;
-            EndDate = StartDate.AddDays(28);
+            InitProperties();
             SendCommand = new RelayCommand(GetSomethingCommand, GetSomething_CanExec);
             ToExcelCommand = new RelayCommand(ExportExcelCommand, GetSomething_CanExec);
             Doctors = new ObservableCollection<DoctorCodeModel>();
@@ -81,12 +108,16 @@ namespace VaccineReportBackend.ViewModels
             try
             {
                 using IUnitOfWork unitOfWork = Caller.GetDefaultUnitOfWork();
-                IEnumerable<DoctorCodeModel> doctorSet =  await unitOfWork.DoctorCodeRepository.GetAllDoctorsAsync();
-                Doctors = new ObservableCollection<DoctorCodeModel>(doctorSet);                
-                IEnumerable<VaccineComboBoxModel> vacSet =  await unitOfWork.VaccineRepository.GetAllVaccineAsync();
-                Vaccines = new ObservableCollection<VaccineComboBoxModel>(vacSet);
-                IEnumerable<SubPlanComboBoxModel> subplanSet = await unitOfWork.VaccineRepository.GetAllSubPlanAsync();
-                _defaultSubPlans = new ObservableCollection<SubPlanComboBoxModel>(subplanSet);
+                Doctors = new ObservableCollection<DoctorCodeModel>(await unitOfWork.DoctorCodeRepository.GetAllDoctorsAsync());                
+                Vaccines = new ObservableCollection<VaccineComboBoxModel>(await unitOfWork.VaccineRepository.GetAllVaccineAsync());
+                Doctors.Insert(0, new DoctorCodeModel()
+                {
+                    DoctorCode = null,
+                    Initials = null,
+                    Firstname = "None", 
+                    Surname = "Selected", 
+                });
+                _defaultSubPlans = await unitOfWork.VaccineRepository.GetAllSubPlanAsync();
             }
             catch(Exception e)
             {
@@ -95,32 +126,62 @@ namespace VaccineReportBackend.ViewModels
             }
         }
 
-        private async void SubPlanFilterTrigger()
+        private void PopulateSubPlanList(int vaccineCode)
         {
-
+            SubPlans = new ObservableCollection<SubPlanComboBoxModel>(_defaultSubPlans.Where(x => x.VaccinePlanKey == vaccineCode));
+            SubPlans.Insert(0, new SubPlanComboBoxModel()
+            {
+                SubPlanKey = null,
+                VaccinePlanKey = vaccineCode,
+                SubPlanName = "None Selected",
+            });
         }
 
+        private DateTime ChangeEndDateOnStartDateChanged(DateTime startDate, DateTime endDate, double daysToAdd)
+        {
+            if(startDate >= endDate)
+            {
+                return endDate.AddDays(daysToAdd);
+            }
+            else
+            {
+                return endDate;
+            }
+        }
 
         #region CommandDeclaration
-        private void GetSomethingCommand()
+        private async void GetSomethingCommand()
         {
-            // TO-DO::
+            try
+            {
+                using IUnitOfWork unitOfWork = Caller.GetDefaultUnitOfWork();
+                AppointmentResults = new ObservableCollection<IAppointmentResult>(await unitOfWork.VaccineRepository.GetAppointResultAsync(this));
+                IsDataGridVisible = "Visible";
+            }
+            catch(Exception e)
+            {
+                IsDataGridVisible = "Collapsed";
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
         }
 
         private void ExportExcelCommand()
         {
-            // TO-DO::
+            ExcelExporter.GenerateExcel(ExcelExporter.ConvertToDataTable(AppointmentResults));
         }
         private bool GetSomething_CanExec()
         {
             // TO-DO::
             return true;
         }
-
-        private void ResetWindow()
-        {
-            // TO-DO::
-        }
         #endregion
+
+        private void InitProperties()
+        {
+            Dose = 1;
+            StartDate = DateTime.Today;
+            EndDate = StartDate.AddDays(28);
+            IsDataGridVisible = "Collapsed";
+        }
     }
 }
