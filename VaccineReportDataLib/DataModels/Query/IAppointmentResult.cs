@@ -13,11 +13,11 @@ namespace VaccineReportDataLib.DataModels.Query
         public string Initials { get; set; }
         public string Firstname { get; set; }
         public string Surname { get; set; }
+        public string Fullname { get; }
         public DateTime Birthdate { get; set; }
         public int Age { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
-        public string Fullname { get; }
 
     }
 }
