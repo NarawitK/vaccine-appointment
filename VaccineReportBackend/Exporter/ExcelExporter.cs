@@ -29,10 +29,10 @@ namespace VaccineReportBackend.Exporter
         };
         public static void GenerateExcel(DataTable dt, string? path = null)
         {
-            DataSet ds = new DataSet();
+            DataSet ds = new();
             ds.Tables.Add(dt);
 
-            Excel.Application excelApp = new Excel.Application();  
+            Excel.Application excelApp = new();  
             if(excelApp == null)
             {
                 throw new Exception("This function requires Office 2016 or later");
@@ -42,7 +42,6 @@ namespace VaccineReportBackend.Exporter
             Excel.Range xlRange = xlWorksheet.UsedRange;
             foreach (DataTable tbl in ds.Tables)
             {
-                //Excel.Worksheet excelWorkSheet = (Excel.Worksheet)xlWorkBook.Sheets.Add();
                 xlWorksheet.Name = tbl.TableName;
 
                 // Add Cols.
@@ -64,6 +63,7 @@ namespace VaccineReportBackend.Exporter
                             break;
                     }
                     xlWorksheet.Cells[1, i] = columnName[i-1];
+                    // Assigned Column Name as Property Name
                     // xlWorksheet.Cells[1, i] = tbl.Columns[i-1].ColumnName;
                 }
 
@@ -85,7 +85,7 @@ namespace VaccineReportBackend.Exporter
         public static DataTable ConvertToDataTable<T>(IEnumerable<T> models)
         {
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            DataTable dt = new DataTable("VaccineAppointment");
+            DataTable dt = new("VaccineAppointment");
             foreach(PropertyInfo prop in Props)
             {
                 dt.Columns.Add(prop.Name);

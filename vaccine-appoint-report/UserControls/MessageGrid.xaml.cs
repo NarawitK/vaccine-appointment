@@ -14,17 +14,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VaccineReportBackend.ViewModels;
 
-namespace vaccine_appoint_report
+namespace vaccine_appoint_report.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MessageGrid : UserControl
     {
-        private readonly MainViewModel viewModel = new MainViewModel();
-        public MainWindow()
+        public MessageGrid()
         {
-            DataContext = viewModel;
             InitializeComponent();
         }
     }

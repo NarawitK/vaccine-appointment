@@ -62,6 +62,7 @@ namespace VaccineReportDataLib.DataModels.UI
             }
         }
 
+
         public string GetStartDate => _startDate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
         public string GetEndDate => _endDate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
     }

@@ -4,23 +4,26 @@
         xmlns:cv="clr-namespace:vaccine_appoint_report.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:vaccine_appoint_report.UserControls"
+        xmlns:v="clr-namespace:vaccine_appoint_report.Validations"
         xmlns:local="clr-namespace:vaccine_appoint_report"
         xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
         mc:Ignorable="d"     
-        Title="MainWindow" Height="400" Width="400">
+        Title="MainWindow" Height="400" Width="400"
+        WindowStartupLocation="CenterOwner" 
+        Style="{StaticResource GlobalStyle}">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
     <Window.Resources>
         <cv:WindowSizeConverter x:Key="WindowSizeConverter" />
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
-    
+
     <StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Background="LightGray">
-            <TextBlock Text="555" />
-        </StackPanel>
-        <Label Content="This is an app." Padding="8" />
+        <Label
+            Style="{StaticResource AppTitleText}"
+            Content="แอพออกนัด" />
         <Grid Margin="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -36,39 +39,56 @@
             </Grid.ColumnDefinitions>
             <Label 
                 Content="Vaccine"
+                Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="0" />
             <Label 
-                Content="Appointment Dose" 
+                Content="Appointment Dose"
+                Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="1" />
             <ComboBox 
                 IsEditable="True" 
                 Name="VaccineComboBox"
+                Style="{StaticResource BaseComboBox}"
                 ItemsSource="{Binding Vaccines, Mode=TwoWay}"
                 SelectedValue="{Binding VaccineCode, Mode=OneWayToSource}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="VaccineCode"
                 Grid.Row="1" Grid.Column="0" />
             <TextBox 
-                Text="{Binding Dose, Mode=TwoWay}" 
-                Grid.Row="1" Grid.Column="1" />
+                Style="{StaticResource BaseTextBox}"
+                Grid.Row="1" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="Dose" ValidatesOnExceptions="True">
+                        <Binding.ValidationRules>
+                            <v:StringToNumeric ValidationStep="RawProposedValue" />
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Label 
-                Content="StartDate" 
+                Content="StartDate"
+                Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="0" />
             <Label 
-                Content="Appointment Date" 
+                Content="Appointment Date"
+                Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="1" />
             <DatePicker 
                 Name="StartDatePicker"
+                Style="{StaticResource BaseDatePicker}"
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding StartDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="0" />
             <DatePicker 
                 Name="AppointDatePicker"
+                Style="{StaticResource BaseDatePicker}"
                 DisplayDateStart="{Binding StartDate}"
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding EndDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="1" />
             <Label 
+                Style="{StaticResource BaseLabel}"
                 Content="Sub Vaccine Appointment Plan" 
                 Grid.Row="4" Grid.Column="0" />
             <ComboBox 
@@ -77,16 +97,19 @@
                 DisplayMemberPath="SubPlanName"
                 SelectedValuePath="SubPlanKey"
                 SelectedValue="{Binding SubVaccinePlanCode, Mode=OneWayToSource}"
-                Grid.Row="4" Grid.Column="1" />
-            <Label 
-                Content="Specify Doctor Code" 
+                Style="{StaticResource BaseComboBox}"
                 Grid.Row="5" Grid.Column="0" />
+            <Label 
+                Content="Specify Doctor Code"
+                Style="{StaticResource BaseLabel}"
+                Grid.Row="4" Grid.Column="1" />
             <ComboBox 
                 Name="DoctorComboBox"
                 IsEditable="True"
                 ItemsSource="{Binding Doctors, Mode=TwoWay}"
                 DisplayMemberPath="FullName"
                 SelectedValuePath="DoctorCode"
+                Style="{StaticResource BaseComboBox}"
                 Grid.Row="5" Grid.Column="1" />
         </Grid>
 
@@ -101,13 +124,26 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Content="Execute" Command="{Binding SendCommand}" Padding="8" Grid.Row="0" Grid.Column="0" />
-            <Button Content="Export as Excel 2010+" Command="{Binding ToExcelCommand}" Padding="8" Grid.Row="0" Grid.Column="1" />
-            <Label Content="DataGrid" Grid.Row="1" Grid.Column="0" Visibility="{Binding IsDataGridVisible, Mode=OneWay}"/>
-            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding IsDataGridVisible, Mode=OneWay}">
+            <Button 
+                Content="Execute" 
+                Command="{Binding FetchAppointmentsCommand}" 
+                Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource BaseButton}"/>
+            <Button 
+                Content="Export as Excel 2010+" 
+                Command="{Binding ExportExcelCommand}"
+                Grid.Row="0" Grid.Column="1" 
+                Style="{StaticResource BaseButton}" />
+            <uc:MessageGrid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                DataContext="{Binding Path=DataContext.MessageGridViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
+                Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
                 <TextBlock Text="จำนวนนัด: " />
-                <TextBlock Text="Binding Jaaa" />
-                <TextBlock Text="ราย" />
+                <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
+                <TextBlock Text=" ราย" />
             </StackPanel>
             <DataGrid
                 AutoGenerateColumns="False"
@@ -122,7 +158,7 @@
                 Grid.Row="3" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="2"
-                Visibility="{Binding IsDataGridVisible, Mode=OneWay}">
+                Visibility="{Binding IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn 
                         Width="auto"

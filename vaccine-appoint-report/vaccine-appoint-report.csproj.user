@@ -7,7 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\MessageGrid.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\NumericUpDown.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\StyleDict.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\MessageGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\NumericUpDown.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

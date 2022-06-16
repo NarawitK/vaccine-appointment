@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VaccineReportDataLib.DataModels.UI;
 using VaccineReportBackend.Commands;
 using VaccineReportDataLib.DataAccess.UnitOfWork;
@@ -76,8 +75,8 @@ namespace VaccineReportBackend.ViewModels
         #endregion
 
         #region Visibility
-        private string _isDataGridVisible;
-        public string IsDataGridVisible
+        private bool _isDataGridVisible;
+        public bool IsDataGridVisible
         {
             get => _isDataGridVisible;
             set
@@ -89,15 +88,17 @@ namespace VaccineReportBackend.ViewModels
         #endregion
 
         #region Command Properties
-        public RelayCommand SendCommand { get; }
-        public RelayCommand ToExcelCommand { get; }
+        public RelayCommand FetchAppointmentsCommand { get; }
+        public RelayCommand ExportExcelCommand { get; }
+        public MessageGridViewModel MessageGridViewModel { get; set; }
         #endregion
 
         public MainViewModel()
         {
+            MessageGridViewModel = new();
             InitProperties();
-            SendCommand = new RelayCommand(GetSomethingCommand, GetSomething_CanExec);
-            ToExcelCommand = new RelayCommand(ExportExcelCommand, GetSomething_CanExec);
+            FetchAppointmentsCommand = new RelayCommand(FetchAppointments, CanFetchAppointment);
+            ExportExcelCommand = new RelayCommand(ExportExcel, CanExecuteExportExcelCommand);
             Doctors = new ObservableCollection<DoctorCodeModel>();
             Vaccines = new ObservableCollection<VaccineComboBoxModel>();
             InitializeComboBoxDataSource();
@@ -121,8 +122,7 @@ namespace VaccineReportBackend.ViewModels
             }
             catch(Exception e)
             {
-                // TO-DOs:::
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Error, string.Format("Error on startup: {0}", e.Message));
             }
         }
 
@@ -137,7 +137,7 @@ namespace VaccineReportBackend.ViewModels
             });
         }
 
-        private DateTime ChangeEndDateOnStartDateChanged(DateTime startDate, DateTime endDate, double daysToAdd)
+        private static DateTime ChangeEndDateOnStartDateChanged(DateTime startDate, DateTime endDate, double daysToAdd)
         {
             if(startDate >= endDate)
             {
@@ -150,29 +150,48 @@ namespace VaccineReportBackend.ViewModels
         }
 
         #region CommandDeclaration
-        private async void GetSomethingCommand()
+        private async void FetchAppointments()
         {
             try
             {
+                MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Valid, "Data Has Been Feteched.");
                 using IUnitOfWork unitOfWork = Caller.GetDefaultUnitOfWork();
                 AppointmentResults = new ObservableCollection<IAppointmentResult>(await unitOfWork.VaccineRepository.GetAppointResultAsync(this));
-                IsDataGridVisible = "Visible";
+                IsDataGridVisible = true;
             }
             catch(Exception e)
             {
-                IsDataGridVisible = "Collapsed";
+                IsDataGridVisible = false;
                 System.Diagnostics.Debug.WriteLine(e.Message);
+                MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Error, string.Format("Error: {0}", e.Message));
+                
             }
         }
 
-        private void ExportExcelCommand()
+        private void ExportExcel()
         {
-            ExcelExporter.GenerateExcel(ExcelExporter.ConvertToDataTable(AppointmentResults));
+            try
+            {
+                ExcelExporter.GenerateExcel(ExcelExporter.ConvertToDataTable(AppointmentResults));
+            }
+            catch (Exception e)
+            {
+                MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Error, string.Format("Error: {0}", e.Message));
+            }
         }
-        private bool GetSomething_CanExec()
+        private bool CanExecuteExportExcelCommand()
         {
-            // TO-DO::
-            return true;
+            if (AppointmentResults != null && AppointmentResults.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        private bool CanFetchAppointment()
+        {
+            if(VaccineCode > 0 && Dose > 0)
+                return true;
+            else 
+                return false;
         }
         #endregion
 
@@ -181,7 +200,7 @@ namespace VaccineReportBackend.ViewModels
             Dose = 1;
             StartDate = DateTime.Today;
             EndDate = StartDate.AddDays(28);
-            IsDataGridVisible = "Collapsed";
+            IsDataGridVisible = false;
         }
     }
 }
