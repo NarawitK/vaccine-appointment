@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace vaccine_appoint_report.Resources.Translations {
+namespace VaccineAppointmentUI.Resources.Translations {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace vaccine_appoint_report.Resources.Translations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("vaccine_appoint_report.Resources.Translations.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaccineAppointmentUI.Resources.Translations.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

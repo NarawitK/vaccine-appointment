@@ -3,3 +3,4 @@ AssemblyInfo.cs
 */obj
 *.config
 /.vs
+*.csproj.user

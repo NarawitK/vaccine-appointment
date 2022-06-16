@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>vaccine_appoint_report</RootNamespace>
+    <RootNamespace>VaccineAppointmentUI</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

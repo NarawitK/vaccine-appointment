@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace vaccine_appoint_report.Resources.Translations {
+namespace VaccineAppointmentUI.Resources.Translations {
     using System;
     
     

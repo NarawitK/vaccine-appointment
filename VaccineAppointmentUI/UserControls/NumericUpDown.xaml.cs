@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace vaccine_appoint_report.UserControls
+namespace VaccineAppointmentUI.UserControls
 {
     /// <summary>
     /// Interaction logic for NumericUpDown.xaml

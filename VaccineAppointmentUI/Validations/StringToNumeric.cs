@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
-namespace vaccine_appoint_report.Validations
+namespace VaccineAppointmentUI.Validations
 {
     public class StringToNumeric : ValidationRule
     {

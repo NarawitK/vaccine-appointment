@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace vaccine_appoint_report.Converters
+namespace VaccineAppointmentUI.Converters
 {
     public class VisibilityConverter : IValueConverter
     {
