@@ -117,58 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppTitle" xml:space="preserve">
-    <value>แอพพลิเคชันกรองข้อมูลนัดวัคซีน COVID-19</value>
+  <data name="DoctorNullChoice" xml:space="preserve">
+    <value>None</value>
   </data>
-  <data name="DocCodeLabel" xml:space="preserve">
-    <value>กรองข้อมูลจากผู้ฉีด</value>
-  </data>
-  <data name="DocCodeTooltip" xml:space="preserve">
-    <value>เลือกเพื่อกรองข้อมูลเฉพาะผู้ฉีดท่านนี้</value>
-  </data>
-  <data name="DoseLabel" xml:space="preserve">
-    <value>นัดจากเข็มที่</value>
-  </data>
-  <data name="EndDateLabel" xml:space="preserve">
-    <value>วันที่นัดครั้งต่อไป</value>
-  </data>
-  <data name="EndDateTooltip" xml:space="preserve">
-    <value>เลือกวันนัดเข็มถัดไป (ปี เป็น ค.ศ. เท่านั้น)</value>
-  </data>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>เกิดข้อผิดพลาด</value>
-  </data>
-  <data name="ExportExcelBtnText" xml:space="preserve">
-    <value>ส่งออก Excel (.xlsx)</value>
-  </data>
-  <data name="ExportExcelMessage" xml:space="preserve">
-    <value>หากข้อมูลถูกจัดเตรียมเรียบร้อย Excel จะเปิดขึ้นมาโดยอัตโนมัติ</value>
-  </data>
-  <data name="FetchBtnText" xml:space="preserve">
-    <value>ค้นหาข้อมูล</value>
-  </data>
-  <data name="FetchedMessage" xml:space="preserve">
-    <value>ค้นข้อมูลเสร็จสิ้น</value>
-  </data>
-  <data name="ReadyMessage" xml:space="preserve">
-    <value>พร้อมใช้งาน</value>
-  </data>
-  <data name="StartDateLabel" xml:space="preserve">
-    <value>วันที่มารับบริการ</value>
-  </data>
-  <data name="StartDateTooltip" xml:space="preserve">
-    <value>เลือกวันที่ให้บริการ (ปี เป็น ค.ศ. เท่านั้น)</value>
-  </data>
-  <data name="SubVacLabel" xml:space="preserve">
-    <value>กรองข้อมูลจากแผน</value>
-  </data>
-  <data name="SubVacTooltip" xml:space="preserve">
-    <value>เลือกเพื่อกรองข้อมูลข้อมูลเฉพาะแผนนัดดังกล่าว</value>
-  </data>
-  <data name="VaccineLabel" xml:space="preserve">
-    <value>วัคซีน</value>
-  </data>
-  <data name="VaccineTooltip" xml:space="preserve">
-    <value>เลือกประเภทวัคซีนที่ต้องการกรองข้อมูล</value>
+  <data name="SubPlanNullChoice" xml:space="preserve">
+    <value>None</value>
   </data>
 </root>

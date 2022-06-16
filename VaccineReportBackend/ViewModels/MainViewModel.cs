@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Resources;
 using VaccineReportDataLib.DataModels.UI;
 using VaccineReportBackend.Commands;
 using VaccineReportDataLib.DataAccess.UnitOfWork;
-using System.Collections.ObjectModel;
 using VaccineReportDataLib.DataModels.Query;
 using VaccineReportBackend.Exporter;
+using System.Reflection;
 
 namespace VaccineReportBackend.ViewModels
 {
     public class MainViewModel : FormModel
     {
+        protected readonly ResourceManager rm = new ResourceManager("VaccineReportBackend.Resources.Translation", Assembly.GetExecutingAssembly());
+
         public override int VaccineCode { 
             get => base.VaccineCode;
             set {
@@ -115,8 +119,8 @@ namespace VaccineReportBackend.ViewModels
                 {
                     DoctorCode = null,
                     Initials = null,
-                    Firstname = "None", 
-                    Surname = "Selected", 
+                    Firstname = rm.GetString("DoctorNullChoice"), 
+                    Surname = null, 
                 });
                 _defaultSubPlans = await unitOfWork.VaccineRepository.GetAllSubPlanAsync();
             }
@@ -133,7 +137,7 @@ namespace VaccineReportBackend.ViewModels
             {
                 SubPlanKey = null,
                 VaccinePlanKey = vaccineCode,
-                SubPlanName = "None Selected",
+                SubPlanName = rm.GetString("SubPlanNullChoice"),
             });
         }
 

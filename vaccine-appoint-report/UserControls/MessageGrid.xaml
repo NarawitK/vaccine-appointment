@@ -4,13 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:vaccine_appoint_report.UserControls"
-             xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -18,12 +17,16 @@
         <Image 
             Grid.Column="0"
             Grid.Row="0"
+            MaxWidth="64"
+            MaxHeight="64"
             Source="{Binding StatusImgPath, Mode=OneWay}" />
         <TextBlock 
             Grid.Column="1"
             Grid.Row="0"
             Style="{StaticResource BaseMessageText}"
-            Text="{Binding Message, Mode=OneWay}">
+            Text="{Binding Message, Mode=OneWay}"
+            TextWrapping="Wrap">
+            
         </TextBlock>
     </Grid>
 </UserControl>

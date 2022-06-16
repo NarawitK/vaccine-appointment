@@ -1,4 +1,5 @@
 ﻿using DatabaseCore.Interfaces;
+using System;
 using System.Data;
 
 namespace VaccineReportDataLib.DataAccess.UnitOfWork
@@ -11,14 +12,25 @@ namespace VaccineReportDataLib.DataAccess.UnitOfWork
         private IVaccineRepository _vaccineRepository;
         public UnitOfWork(IDatabase dbConnection)
         {
-            //Currently Use MyISAM db engine which not support transaction. So transaction is disabled.
-            _dbConnection = dbConnection.Connection;
-            _dbTransaction = null;
-            /*
-             * Uncomment here for TX Usage
-			 * _dbConnection = dbConnection.Open();
-             * _dbTransaction = _dbConnection.BeginTransaction();
-            */
+            try
+            {
+                //Currently Use MyISAM db engine which not support transaction. So transaction is disabled.
+                _dbConnection = dbConnection.Connection;
+                _dbTransaction = null;
+                /*
+                 * Uncomment here for TX Usage
+			     * _dbConnection = dbConnection.Open();
+                 * _dbTransaction = _dbConnection.BeginTransaction();
+                */
+            }
+            catch(NullReferenceException)
+            {
+                throw new Exception("Cannot Load DataSource Configuration File. Maybe it's missing or Corrupted.");
+            }
+            catch (Exception)
+            {
+                throw new Exception("Cannot Connect to Specified Datasource.");
+            }
         }
 
         public IDoctorCodeRepository DoctorCodeRepository => _doctorCodeRepository ??= new DoctorCodeRepository(_dbConnection, _dbTransaction);

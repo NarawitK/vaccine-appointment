@@ -5,11 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:vaccine_appoint_report.UserControls"
+        xmlns:tr="clr-namespace:vaccine_appoint_report.Resources.Translations"
         xmlns:v="clr-namespace:vaccine_appoint_report.Validations"
         xmlns:local="clr-namespace:vaccine_appoint_report"
         xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
         mc:Ignorable="d"     
-        Title="MainWindow" Height="400" Width="400"
+        Title="{x:Static tr:Resource.AppTitle}" Height="600" Width="600"
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource GlobalStyle}">
     <Window.DataContext>
@@ -20,11 +21,20 @@
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
 
-    <StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
         <Label
+            Grid.Row="0"
             Style="{StaticResource AppTitleText}"
-            Content="แอพออกนัด" />
-        <Grid Margin="8">
+            Content="{x:Static tr:Resource.AppTitle}" />
+        <Grid Grid.Row="1" Margin="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -38,11 +48,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label 
-                Content="Vaccine"
+                Content="{x:Static tr:Resource.VaccineLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="0" />
             <Label 
-                Content="Appointment Dose"
+                Content="{x:Static tr:Resource.DoseLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="1" />
             <ComboBox 
@@ -50,6 +60,7 @@
                 Name="VaccineComboBox"
                 Style="{StaticResource BaseComboBox}"
                 ItemsSource="{Binding Vaccines, Mode=TwoWay}"
+                ToolTip="{x:Static tr:Resource.VaccineTooltip}"
                 SelectedValue="{Binding VaccineCode, Mode=OneWayToSource}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="VaccineCode"
@@ -67,53 +78,57 @@
                 </TextBox.Text>
             </TextBox>
             <Label 
-                Content="StartDate"
+                Content="{x:Static tr:Resource.StartDateLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="0" />
             <Label 
-                Content="Appointment Date"
+                Content="{x:Static tr:Resource.EndDateLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="1" />
             <DatePicker 
                 Name="StartDatePicker"
+                ToolTip="{x:Static tr:Resource.StartDateTooltip}"
                 Style="{StaticResource BaseDatePicker}"
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding StartDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="0" />
             <DatePicker 
                 Name="AppointDatePicker"
+                ToolTip="{x:Static tr:Resource.EndDateTooltip}"
                 Style="{StaticResource BaseDatePicker}"
                 DisplayDateStart="{Binding StartDate}"
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding EndDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="1" />
             <Label 
-                Style="{StaticResource BaseLabel}"
-                Content="Sub Vaccine Appointment Plan" 
-                Grid.Row="4" Grid.Column="0" />
+                Content="{x:Static tr:Resource.SubVacLabel}" 
+                Grid.Row="4" Grid.Column="0"
+                Style="{StaticResource BaseLabel}" />
             <ComboBox 
                 Name="SubPlanComboBox"
-                ItemsSource="{Binding SubPlans, Mode=OneWay}"
                 DisplayMemberPath="SubPlanName"
+                Grid.Row="5" Grid.Column="0"
+                ItemsSource="{Binding SubPlans, Mode=OneWay}"
                 SelectedValuePath="SubPlanKey"
                 SelectedValue="{Binding SubVaccinePlanCode, Mode=OneWayToSource}"
-                Style="{StaticResource BaseComboBox}"
-                Grid.Row="5" Grid.Column="0" />
+                Style="{StaticResource BaseComboBox}" 
+                ToolTip="{x:Static tr:Resource.SubVacTooltip}" />
             <Label 
-                Content="Specify Doctor Code"
-                Style="{StaticResource BaseLabel}"
-                Grid.Row="4" Grid.Column="1" />
+                Content="{x:Static tr:Resource.DocCodeLabel}"
+                Grid.Row="4" Grid.Column="1"
+                Style="{StaticResource BaseLabel}" />
             <ComboBox 
-                Name="DoctorComboBox"
-                IsEditable="True"
-                ItemsSource="{Binding Doctors, Mode=TwoWay}"
                 DisplayMemberPath="FullName"
+                Grid.Row="5" Grid.Column="1"
+                ItemsSource="{Binding Doctors, Mode=TwoWay}"
+                IsEditable="True"
+                Name="DoctorComboBox"
                 SelectedValuePath="DoctorCode"
-                Style="{StaticResource BaseComboBox}"
-                Grid.Row="5" Grid.Column="1" />
+                Style="{StaticResource BaseComboBox}" 
+                ToolTip="{x:Static tr:Resource.DocCodeTooltip}"/>
         </Grid>
 
-        <Grid Margin="8">
+        <Grid Grid.Row="2" Margin="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -121,16 +136,16 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Button 
-                Content="Execute" 
+                Content="{x:Static tr:Resource.FetchBtnText}" 
                 Command="{Binding FetchAppointmentsCommand}" 
                 Grid.Row="0" Grid.Column="0"
                 Style="{StaticResource BaseButton}"/>
             <Button 
-                Content="Export as Excel 2010+" 
+                Content="{x:Static tr:Resource.ExportExcelBtnText}" 
                 Command="{Binding ExportExcelCommand}"
                 Grid.Row="0" Grid.Column="1" 
                 Style="{StaticResource BaseButton}" />
@@ -142,7 +157,7 @@
                 Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
                 <TextBlock Text="จำนวนนัด: " />
-                <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
+                <TextBlock Text=" {Binding AppointmentResults.Count, Mode=OneWay}" />
                 <TextBlock Text=" ราย" />
             </StackPanel>
             <DataGrid
@@ -162,46 +177,46 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="วันนัดถัดไป"
+                        Header="{x:Static tr:Resource.AppointDateHeader}"
                         Binding="{Binding NextScheduleDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}"/>
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="วันที่รับบริการ"
+                        Header="{x:Static tr:Resource.InjectionDateHeader}"
                         Binding="{Binding InjectionDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="วัคซีนที่ได้รับครั้งก่อน"
+                        Header="{x:Static tr:Resource.VacNameHeader}"
                         Binding="{Binding VaccineName, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="HN"
+                        Header="{x:Static tr:Resource.HnHeader}"
                         Binding="{Binding HN, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto" 
-                        Header="เลขประจำตัวประชาชน"
+                        Header="{x:Static tr:Resource.CidHeader}"
                         Binding="{Binding CID, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="ชื่อ-สกุล"
+                        Header="{x:Static tr:Resource.FullNameHeader}"
                         Binding="{Binding Fullname, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="วันเกิด"
+                        Header="{x:Static tr:Resource.BirthdateHeader}"
                         Binding="{Binding Birthdate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="อายุ"
+                        Header="{x:Static tr:Resource.AgeHeader}"
                         Binding="{Binding Age, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto" 
-                        Header="ที่อยู่"
+                        Header="{x:Static tr:Resource.AddressHeader}"
                         Binding="{Binding Address, Mode=OneWay}" />
                     <DataGridTextColumn 
                         Width="auto"
-                        Header="เบอร์โทรติดต่อ"
+                        Header="{x:Static tr:Resource.TelHeader}"
                         Binding="{Binding Telephone, Mode=OneWay}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-    </StackPanel>
+    </Grid>
 </Window>
