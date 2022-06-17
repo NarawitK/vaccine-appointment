@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:VaccineAppointmentUI"
         xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
         mc:Ignorable="d"     
-        Title="{x:Static tr:Resource.AppTitle}" Height="600" Width="600"
+        Title="{x:Static tr:Resource.AppTitle}" Height="600" Width="800"
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource GlobalStyle}">
     <Window.DataContext>
@@ -157,7 +157,7 @@
                 Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
                 <TextBlock Text="จำนวนนัด: " />
-                <TextBlock Text=" {Binding AppointmentResults.Count, Mode=OneWay}" />
+                <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
                 <TextBlock Text=" ราย" />
             </StackPanel>
             <DataGrid
