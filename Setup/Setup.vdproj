@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1F6AA1425E7C484EA8616AC5C0C03EDB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6E28F59C80A447789B6AF605A3783024"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -382,15 +376,15 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6B580AEB6B8747C1B7210819B4B17ABC"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1F99910458674CAAA233556E1821F867"
             {
-            "Name" = "8:Vac Appointment Report"
+            "Name" = "8:Cov-19 Vaccine Appointment Report"
             "Arguments" = "8:"
-            "Description" = "8:"
+            "Description" = "8:Cov-19 Vaccine Appointment Report"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_1F6AA1425E7C484EA8616AC5C0C03EDB"
+            "Target" = "8:_6269324ED0BE48E9949AFC604349E5D6"
             "Folder" = "8:_63E6B9EBA5D74517ACDFDEC826B36222"
             "WorkingFolder" = "8:_CDB18EBCFDD64221B73726C947392FC7"
             "Icon" = "8:_14523EABC01147629B5187CB6842B6BC"
@@ -795,7 +789,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1F6AA1425E7C484EA8616AC5C0C03EDB"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6269324ED0BE48E9949AFC604349E5D6"
             {
             "SourcePath" = "8:..\\VaccineAppointmentUI\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
@@ -815,7 +809,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{E9F95FF8-0740-4B5C-A295-0560E4D77EBD}"
             "ShowKeyOutput" = "11:TRUE"
