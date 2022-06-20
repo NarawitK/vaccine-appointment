@@ -96,10 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.6.0.x64"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     {
-                    "Name" = "8:.NET Runtime 6.0.6 (x64)"
-                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.6.0.x64"
+                    "Name" = "8:.NET Desktop Runtime 6.0.6 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
             }
@@ -262,7 +262,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Cov-19 Vaccine Appoint Report"
         "ProductCode" = "8:{C421B3FE-26D9-4B9C-A0FE-20168ED5D813}"
-        "PackageCode" = "8:{2CB755CE-0E14-4600-A8A6-959419E9DDFA}"
+        "PackageCode" = "8:{7DA7D7F3-371B-4553-990F-3EDCBA2A810F}"
         "UpgradeCode" = "8:{1AA4FEE2-960E-4808-9934-E90A480BEC05}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -279,7 +279,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Cov19 Vaccine Appointment Report Application"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_14523EABC01147629B5187CB6842B6BC"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

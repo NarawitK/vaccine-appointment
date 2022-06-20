@@ -4,3 +4,4 @@ AssemblyInfo.cs
 /Setup/Release/*
 /.vs
 *.csproj.user
+*.config
