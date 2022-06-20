@@ -149,6 +149,9 @@
   <data name="DoseLabel" xml:space="preserve">
     <value>นัดจากเข็มที่</value>
   </data>
+  <data name="DoseTooltip" xml:space="preserve">
+    <value>เช่น ต้องการหานัดเข็ม 2 ให้ใส่ในช่องว่า 1</value>
+  </data>
   <data name="EndDateLabel" xml:space="preserve">
     <value>วันที่นัดครั้งถัดไป</value>
   </data>

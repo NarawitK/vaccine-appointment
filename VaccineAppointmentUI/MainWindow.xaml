@@ -67,6 +67,7 @@
                 Grid.Row="1" Grid.Column="0" />
             <TextBox 
                 Style="{StaticResource BaseTextBox}"
+                ToolTip="{x:Static tr:Resource.DoseTooltip}"
                 Grid.Row="1" Grid.Column="1">
                 <TextBox.Text>
                     <Binding Path="Dose" ValidatesOnExceptions="True">

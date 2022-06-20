@@ -1,6 +1,6 @@
 AssemblyInfo.cs
 */bin
 */obj
-*.config
+/Setup/Release/*
 /.vs
 *.csproj.user

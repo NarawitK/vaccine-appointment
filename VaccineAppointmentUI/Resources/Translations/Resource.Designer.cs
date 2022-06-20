@@ -142,6 +142,15 @@ namespace VaccineAppointmentUI.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to เช่น ต้องการหานัดเข็ม 2 ให้ใส่ในช่องว่า 1.
+        /// </summary>
+        public static string DoseTooltip {
+            get {
+                return ResourceManager.GetString("DoseTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to วันที่นัดครั้งถัดไป.
         /// </summary>
         public static string EndDateLabel {

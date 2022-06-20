@@ -5,12 +5,18 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>VaccineAppointmentUI</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Authors>Narawit Khammanart</Authors>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\valid.png" />
     <None Remove="Resources\Fonts\Kanit-Bold.ttf" />
     <None Remove="Resources\Fonts\Kanit-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
