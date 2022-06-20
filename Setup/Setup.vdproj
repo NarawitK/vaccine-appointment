@@ -81,7 +81,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -96,10 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.6.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:.NET Runtime 6.0.6 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.6.0.x64"
                     }
                 }
             }
@@ -261,15 +261,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Cov-19 Vaccine Appoint Report"
-        "ProductCode" = "8:{2096B707-5B04-43C4-9770-AD4CCBB2F6B9}"
-        "PackageCode" = "8:{03E9C318-0C9B-482E-9D85-01BB7B4C52AE}"
+        "ProductCode" = "8:{C421B3FE-26D9-4B9C-A0FE-20168ED5D813}"
+        "PackageCode" = "8:{2CB755CE-0E14-4600-A8A6-959419E9DDFA}"
         "UpgradeCode" = "8:{1AA4FEE2-960E-4808-9934-E90A480BEC05}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Narawit Khammanart"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
