@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaccineReportDataLib", "Vac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaccineReportBackend", "VaccineReportBackend\VaccineReportBackend.csproj", "{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{460A8AED-39B5-4726-93D3-2E8EC6E38633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2AD9501-5CBF-47CB-8AE6-CB24261C029A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{460A8AED-39B5-4726-93D3-2E8EC6E38633}.Debug|Any CPU.ActiveCfg = Debug
+		{460A8AED-39B5-4726-93D3-2E8EC6E38633}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
