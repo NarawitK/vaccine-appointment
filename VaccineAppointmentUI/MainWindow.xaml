@@ -11,12 +11,11 @@
         xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
         mc:Ignorable="d"     
         Title="{x:Static tr:Resource.AppTitle}" 
-        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.75'}" 
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.75'}"
         Width="800"
-        WindowStartupLocation="CenterOwner" 
+        WindowStartupLocation="CenterOwner"
         Style="{StaticResource GlobalStyle}">
     <Window.Resources>
-        <cv:WindowSizeConverter x:Key="WindowSizeConverter" />
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
 
