@@ -21,45 +21,41 @@
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
 
-    <ScrollViewer
-        HorizontalScrollBarVisibility="Auto"
-        VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Label
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Label
             Grid.Row="0"
             Style="{StaticResource AppTitleText}"
             Content="{x:Static tr:Resource.AppTitle}" />
-                <Grid Grid.Row="1" Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label 
+        <Grid Grid.Row="1" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label 
                 Content="{x:Static tr:Resource.VaccineLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="0" />
-                    <Label 
+            <Label 
                 Content="{x:Static tr:Resource.DoseLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="1" />
-                    <ComboBox 
+            <ComboBox 
                 IsEditable="True" 
                 Name="VaccineComboBox"
                 Style="{StaticResource BaseComboBox}"
@@ -69,35 +65,35 @@
                 DisplayMemberPath="Name"
                 SelectedValuePath="VaccineCode"
                 Grid.Row="1" Grid.Column="0" />
-                    <TextBox 
+            <TextBox 
                 Style="{StaticResource BaseTextBox}"
                 ToolTip="{x:Static tr:Resource.DoseTooltip}"
                 Grid.Row="1" Grid.Column="1">
-                        <TextBox.Text>
-                            <Binding Path="Dose" ValidatesOnExceptions="True">
-                                <Binding.ValidationRules>
-                                    <v:StringToNumeric ValidationStep="RawProposedValue" />
-                                    <ExceptionValidationRule />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                    <Label 
+                <TextBox.Text>
+                    <Binding Path="Dose" ValidatesOnExceptions="True">
+                        <Binding.ValidationRules>
+                            <v:StringToNumeric ValidationStep="RawProposedValue" />
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label 
                 Content="{x:Static tr:Resource.StartDateLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="0" />
-                    <Label 
+            <Label 
                 Content="{x:Static tr:Resource.EndDateLabel}"
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="2" Grid.Column="1" />
-                    <DatePicker 
+            <DatePicker 
                 Name="StartDatePicker"
                 ToolTip="{x:Static tr:Resource.StartDateTooltip}"
                 Style="{StaticResource BaseDatePicker}"
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding StartDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="0" />
-                    <DatePicker 
+            <DatePicker 
                 Name="AppointDatePicker"
                 ToolTip="{x:Static tr:Resource.EndDateTooltip}"
                 Style="{StaticResource BaseDatePicker}"
@@ -105,11 +101,11 @@
                 SelectedDateFormat="Short"
                 SelectedDate="{Binding EndDate, Mode=TwoWay}" 
                 Grid.Row="3" Grid.Column="1" />
-                    <Label 
+            <Label 
                 Content="{x:Static tr:Resource.SubVacLabel}" 
                 Grid.Row="4" Grid.Column="0"
                 Style="{StaticResource BaseLabel}" />
-                    <ComboBox 
+            <ComboBox 
                 Name="SubPlanComboBox"
                 DisplayMemberPath="SubPlanName"
                 Grid.Row="5" Grid.Column="0"
@@ -118,11 +114,11 @@
                 SelectedValue="{Binding SubVaccinePlanCode, Mode=OneWayToSource}"
                 Style="{StaticResource BaseComboBox}" 
                 ToolTip="{x:Static tr:Resource.SubVacTooltip}" />
-                    <Label 
+            <Label 
                 Content="{x:Static tr:Resource.DocCodeLabel}"
                 Grid.Row="4" Grid.Column="1"
                 Style="{StaticResource BaseLabel}" />
-                    <ComboBox 
+            <ComboBox 
                 DisplayMemberPath="FullName"
                 Grid.Row="5" Grid.Column="1"
                 ItemsSource="{Binding Doctors, Mode=TwoWay}"
@@ -131,99 +127,96 @@
                 SelectedValuePath="DoctorCode"
                 Style="{StaticResource BaseComboBox}" 
                 ToolTip="{x:Static tr:Resource.DocCodeTooltip}"/>
-                </Grid>
+        </Grid>
 
-                <Grid Grid.Row="2" Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Button 
+        <Grid Grid.Row="2" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Button 
                 Content="{x:Static tr:Resource.FetchBtnText}" 
                 Command="{Binding FetchAppointmentsCommand}" 
                 Grid.Row="0" Grid.Column="0"
                 Style="{StaticResource BaseButton}"/>
-                    <Button 
+            <Button 
                 Content="{x:Static tr:Resource.ExportExcelBtnText}" 
                 Command="{Binding ExportExcelCommand}"
                 Grid.Row="0" Grid.Column="1" 
                 Style="{StaticResource BaseButton}" />
-                    <uc:MessageGrid
+            <uc:MessageGrid
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 DataContext="{Binding Path=DataContext.MessageGridViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
                 Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
-                    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
-                        <TextBlock Text="จำนวนนัด: " />
-                        <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
-                        <TextBlock Text=" ราย" />
-                    </StackPanel>
-                    <DataGrid
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                <TextBlock Text="จำนวนนัด: " />
+                <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
+                <TextBlock Text=" ราย" />
+            </StackPanel>
+            <DataGrid
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding AppointmentResults}"
                 CanUserAddRows="False"
                 CanUserReorderColumns="True"
-                MaxHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.5'}"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 Margin="0,8" 
-                Grid.Row="3" 
+                Grid.Row="3"
                 Grid.Column="0" 
                 Grid.ColumnSpan="2"
                 Visibility="{Binding IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn 
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.AppointDateHeader}"
                         Binding="{Binding NextScheduleDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}"/>
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.InjectionDateHeader}"
                         Binding="{Binding InjectionDate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.VacNameHeader}"
                         Binding="{Binding VaccineName, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.HnHeader}"
                         Binding="{Binding HN, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto" 
                         Header="{x:Static tr:Resource.CidHeader}"
                         Binding="{Binding CID, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.FullNameHeader}"
                         Binding="{Binding Fullname, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.BirthdateHeader}"
                         Binding="{Binding Birthdate, Mode=OneWay, StringFormat={}{0: dd/MM/yyyy}}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.AgeHeader}"
                         Binding="{Binding Age, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto" 
                         Header="{x:Static tr:Resource.AddressHeader}"
                         Binding="{Binding Address, Mode=OneWay}" />
-                            <DataGridTextColumn 
+                    <DataGridTextColumn 
                         Width="auto"
                         Header="{x:Static tr:Resource.TelHeader}"
                         Binding="{Binding Telephone, Mode=OneWay}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Grid>
-        </StackPanel>
-    </ScrollViewer>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
 </Window>
