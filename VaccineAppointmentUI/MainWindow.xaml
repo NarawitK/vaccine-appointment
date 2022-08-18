@@ -8,10 +8,11 @@
         xmlns:tr="clr-namespace:VaccineAppointmentUI.Resources.Translations"
         xmlns:v="clr-namespace:VaccineAppointmentUI.Validations"
         xmlns:local="clr-namespace:VaccineAppointmentUI"
-        xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend"
+        xmlns:vm="clr-namespace:VaccineReportBackend.ViewModels;assembly=VaccineReportBackend" 
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         mc:Ignorable="d"     
         Title="{x:Static tr:Resource.AppTitle}" 
-        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.75'}"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.7'}"
         Width="800"
         WindowStartupLocation="CenterOwner"
         Style="{StaticResource GlobalStyle}">
@@ -19,7 +20,7 @@
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
 
-    <Grid>
+    <Grid Style="{StaticResource MainGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
@@ -54,7 +55,7 @@
                 Style="{StaticResource BaseLabel}"
                 Grid.Row="0" Grid.Column="1" />
             <ComboBox 
-                IsEditable="True" 
+                IsEditable="True"
                 Name="VaccineComboBox"
                 Style="{StaticResource BaseComboBox}"
                 ItemsSource="{Binding Vaccines, Mode=TwoWay}"
@@ -127,8 +128,11 @@
                 ToolTip="{x:Static tr:Resource.DocCodeTooltip}"/>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="8">
+        <Grid 
+            Grid.Row="2" 
+            Margin="8">
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -140,7 +144,8 @@
             </Grid.ColumnDefinitions>
             <Button 
                 Content="{x:Static tr:Resource.FetchBtnText}" 
-                Command="{Binding FetchAppointmentsCommand}" 
+                Command="{Binding FetchAppointmentsCommand}"
+                IsDefault="True"
                 Grid.Row="0" Grid.Column="0"
                 Style="{StaticResource BaseButton}"/>
             <Button 
@@ -148,28 +153,53 @@
                 Command="{Binding ExportExcelCommand}"
                 Grid.Row="0" Grid.Column="1" 
                 Style="{StaticResource BaseButton}" />
-            <uc:MessageGrid
+            <StackPanel
+                DataContext="{Binding Path=DataContext.MessageGridViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Margin="0,16"
-                DataContext="{Binding Path=DataContext.MessageGridViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
-                Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
+                Orientation="Vertical"
+                Margin="0,16">
+                <Label
+                    Style="{StaticResource AppTitleText}"
+                    Content="{x:Static tr:Resource.AppState}"
+                    Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"/>
+                <uc:MessageGrid
+                    Visibility="{Binding IsMessageGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"  />
+            </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding Path=IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
                 <TextBlock Text="จำนวนนัด: " />
                 <TextBlock Text="{Binding AppointmentResults.Count, Mode=OneWay}" />
                 <TextBlock Text=" ราย" />
             </StackPanel>
+            <StackPanel
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal"
+                Visibility="{Binding IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">
+                <Label 
+                    Style="{StaticResource BaseLabel}"
+                    Margin="0,8,8,8"
+                    Content="{x:Static tr:Resource.SearchLabel}" />
+                <TextBox
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="{x:Static tr:Resource.SearchTooltip}"
+                    Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.15'}"
+                    MaxWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={StaticResource WindowSizeConverter}, ConverterParameter='0.2'}"
+                    Padding="8"
+                    VerticalAlignment="Center" />
+            </StackPanel>
             <DataGrid
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding AppointmentResults}"
-                CanUserAddRows="False"
+                ItemsSource="{Binding AppointmentResults, Mode=OneWay}"
                 CanUserReorderColumns="True"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                EnableRowVirtualization="True"
                 Margin="0,8"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="0" 
                 Grid.ColumnSpan="2"
                 Visibility="{Binding IsDataGridVisible, Converter={StaticResource VisibilityConverter}, Mode=OneWay}">

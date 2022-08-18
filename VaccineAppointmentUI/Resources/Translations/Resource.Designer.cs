@@ -88,6 +88,15 @@ namespace VaccineAppointmentUI.Resources.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to สถานะ.
+        /// </summary>
+        public static string AppState {
+            get {
+                return ResourceManager.GetString("AppState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to แอพพลิเคชันกรองข้อมูลนัดวัคซีน COVID-19.
         /// </summary>
         public static string AppTitle {
@@ -246,6 +255,24 @@ namespace VaccineAppointmentUI.Resources.Translations {
         public static string ReadyMessage {
             get {
                 return ResourceManager.GetString("ReadyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ค้นหา.
+        /// </summary>
+        public static string SearchLabel {
+            get {
+                return ResourceManager.GetString("SearchLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to กรอกชื่อนามสกุล หรือ เลขประจำตัวประชาชน เพื่อกรองข้อมูล.
+        /// </summary>
+        public static string SearchTooltip {
+            get {
+                return ResourceManager.GetString("SearchTooltip", resourceCulture);
             }
         }
         

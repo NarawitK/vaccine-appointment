@@ -129,6 +129,9 @@
     <value>วันที่นัดครั้งถัดไป</value>
     <comment>Datagrid</comment>
   </data>
+  <data name="AppState" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>แอพพลิเคชันกรองข้อมูลนัดวัคซีน COVID-19</value>
   </data>
@@ -187,6 +190,12 @@
   </data>
   <data name="ReadyMessage" xml:space="preserve">
     <value>พร้อมใช้งาน</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="SearchTooltip" xml:space="preserve">
+    <value>กรอกชื่อนามสกุล หรือ เลขประจำตัวประชาชน เพื่อกรองข้อมูล</value>
   </data>
   <data name="StartDateLabel" xml:space="preserve">
     <value>วันที่มารับบริการ</value>

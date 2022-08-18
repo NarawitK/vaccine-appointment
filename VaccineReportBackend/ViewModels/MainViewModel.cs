@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Resources;
 using VaccineReportDataLib.DataModels.UI;
@@ -14,7 +15,7 @@ namespace VaccineReportBackend.ViewModels
 {
     public class MainViewModel : FormModel
     {
-        protected readonly ResourceManager rm = new ResourceManager("VaccineReportBackend.Resources.Translation", Assembly.GetExecutingAssembly());
+        protected readonly ResourceManager rm = new("VaccineReportBackend.Resources.Translation", Assembly.GetExecutingAssembly());
 
         public override int VaccineCode { 
             get => base.VaccineCode;
@@ -31,6 +32,18 @@ namespace VaccineReportBackend.ViewModels
                 base.StartDate = value;
                 EndDate = ChangeEndDateOnStartDateChanged(StartDate, EndDate, 21);
                 OnPropertyChanged();
+            }
+        }
+
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                SearchInAppointmentGrid(value);
             }
         }
         #region ComboBoxList
@@ -66,6 +79,9 @@ namespace VaccineReportBackend.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private IList<IAppointmentResult> BackupList { get; set; }
+
         private ObservableCollection<IAppointmentResult> _appointmentResults;
         public ObservableCollection<IAppointmentResult> AppointmentResults
         {
@@ -160,7 +176,8 @@ namespace VaccineReportBackend.ViewModels
             {
                 MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Valid, "Data Has Been Feteched.");
                 using IUnitOfWork unitOfWork = Caller.GetDefaultUnitOfWork();
-                AppointmentResults = new ObservableCollection<IAppointmentResult>(await unitOfWork.VaccineRepository.GetAppointResultAsync(this));
+                BackupList = (await unitOfWork.VaccineRepository.GetAppointResultAsync(this)).ToList();
+                AppointmentResults = new ObservableCollection<IAppointmentResult>(BackupList);
                 IsDataGridVisible = true;
             }
             catch(Exception e)
@@ -169,6 +186,26 @@ namespace VaccineReportBackend.ViewModels
                 System.Diagnostics.Debug.WriteLine(e.Message);
                 MessageGridViewModel.SetMessageGridMessage(true, IconStateEnum.Error, string.Format("Error: {0}", e.Message));
                 
+            }
+        }
+
+        private void SearchInAppointmentGrid(string? searchText = null)
+        {
+            string pattern = @"^[0-9]";
+           if (string.IsNullOrEmpty(searchText))
+            {
+                AppointmentResults = new ObservableCollection<IAppointmentResult>(BackupList);
+            }
+            else
+            {
+                if(Regex.IsMatch(searchText, pattern))
+                {
+                    AppointmentResults = new ObservableCollection<IAppointmentResult>(BackupList.Where(x => x.CID.Contains(searchText)));
+                }
+                else
+                {
+                    AppointmentResults = new ObservableCollection<IAppointmentResult>(BackupList.Where(x => x.Fullname.Contains(searchText)));
+                }
             }
         }
 
